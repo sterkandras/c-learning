@@ -4,11 +4,11 @@
 int main(){
     int c;
 
-    //printf("EOF = %d\n", EOF);
-    //c = getchar();
     //printf("%d\n", INT_MAX);
 
+    printf("start: %d\n", (getchar() != EOF));
     while ((c = getchar()) != EOF) {
         putchar(c);
     }
+    printf("end: %d\n", (getchar() != EOF));
 }
