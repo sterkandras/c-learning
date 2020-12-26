@@ -1,4 +1,13 @@
-ttttt   tttt    ttt tt  t   t
-ttttttt tttttt  tttttt  ttttt   tttt    ttt tt  t
-end
+t  tt ttt	ttt		tttt
+tttt	   tttt	tttt	 ttt	  tttt	ttt	tt	t
 
+
+a a
+a a
+a  a
+a  a
+a	a
+a		 a
+a	  a
+a		   a
+a				   a

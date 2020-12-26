@@ -5,21 +5,28 @@
 
 int main(void)
 {
-    int i, j;
+    FILE  *fpIn, *fpOut;
+    int i;
     int gc;
     int pc;
     int nblank; //number of previous blanks
 
+    fpIn = fopen("tmp\\input.txt", "r");
+    fpOut = fopen("tmp\\output.txt", "w+");
+    if((fpIn || fpOut)==0){
+        printf("Error opening file\n"); return 1;}
+    
     i = 0;
     nblank = 0;
-    while ((gc=getchar()) != EOF)
+    while ((gc=fgetc(fpIn)) != EOF)
     {
         if (gc==' ')
         {
             ++nblank;
             if(i%TABSTOP == TABSTOP-1)
             {
-                putchar('\t');
+                if(fputc('\t', fpOut)==EOF){
+                    printf("Error writing to file\n"); return 1;}
                 nblank = 0;
             }
             ++i;
@@ -28,10 +35,12 @@ int main(void)
         {
             while (nblank > 0)
             {
-                putchar(' ');
+                if(fputc(' ', fpOut)==EOF){
+                    printf("Error writing to file\n"); return 1;}
                 --nblank;
             }
-            putchar(gc);
+            if(fputc(gc, fpOut)==EOF){
+                printf("Error writing to file\n"); return 1;}
             ++i;
             nblank = 0;
         }

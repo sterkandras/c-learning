@@ -1,7 +1,5 @@
-//replaces blanks in the input with the minimum number of tabs and blanks 
-//to space to the next tab stop
 #include <stdio.h>
-#define TABSTOP 4
+#define FOLD 10
 
 int main(void)
 {
@@ -9,18 +7,25 @@ int main(void)
     int gc;
     int pc;
     int nblank; //number of previous blanks
+    int wasNL; //last written chracter was a new line
 
     i = 0;
     nblank = 0;
+    wasNL = 0;
     while ((gc=getchar()) != EOF)
     {
         if (gc==' ')
         {
             ++nblank;
-            if(i%TABSTOP == TABSTOP-1)
+            if (i%FOLD == FOLD-1 && wasNL == 0)
             {
-                putchar('\t');
+                putchar('\n');
+                wasNL = 1;
                 nblank = 0;
+            }
+            else if (gc == ' ')
+            {
+                --nblank;
             }
             ++i;
         }
@@ -34,6 +39,7 @@ int main(void)
             putchar(gc);
             ++i;
             nblank = 0;
+            wasNL = 0;
         }
         if (gc=='\n')
             i = 0;        
