@@ -6,6 +6,7 @@
 int mygetline(char s[], int limit);
 int foldposition(char in[], int column);
 int splitline(char Lout[], char Rout[], char in[], int foldhere);
+int removefrontblank(char to[], char from[]);
 
 int main(void)
 {
@@ -19,16 +20,34 @@ int main(void)
         if (length > MAXLINE){
             printf("Too long line\n"); return(1); exit(EXIT_FAILURE);} 
         
-        printf("line = %s", line);
-        
-        foldhere = foldposition(line, FOLD);
-        //printf("foldhere = %d ", foldhere);
-        remlength = splitline(Lpart, Rpart, line, foldhere);        
-        //printf("remlength = %d\n", remlength);
-        printf("Lpart = %s", Lpart);
-        printf("Rpart = %s", Rpart);
-        
+        printf("###line = %s", line);
+
+        foldhere = remlength = 1;
+        while (remlength > 0 && foldhere != 0)
+        {
+            foldhere = foldposition(line, FOLD);
+            remlength = splitline(Lpart, Rpart, line, foldhere);
+            removefrontblank(line, Rpart);
+            printf("Lpart = %s", Lpart);
+            //printf("Rpart = %s", Rpart);
+        }
     }
+    return 0;
+}
+
+int removefrontblank(char to[], char from[])
+{
+    int i, j;
+
+    i = j = 0;
+    while (from[i] == ' ')
+        ++i;
+    while ((to[j] = from[i]) != '\0')
+    {
+        ++i;
+        ++j;
+    }
+    to[j] = '\0';
     return 0;
 }
 
